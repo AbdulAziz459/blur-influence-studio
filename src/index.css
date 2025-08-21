@@ -2,96 +2,118 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Blur Studios Design System - Neon on Ink Aesthetic */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Core Ink/Surface Colors (HSL) */
+    --ink: 225 14% 4%;              /* #0b0b0d */
+    --ink-2: 225 14% 6%;            /* #101014 */
+    --ink-light: 240 4% 12%;        /* #1c1c20 */
+    --line: 240 5% 26%;             /* rgba(63,63,70,.9) */
+    
+    /* Brand Accent Colors */
+    --sky: 199 89% 48%;             /* #38bdf8 */
+    --cyan: 188 86% 53%;            /* #06b6d4 */
+    
+    /* Character Colors */
+    --aurora: 21 100% 45%;          /* #e35b00 */
+    --nana: 264 48% 29%;            /* #3d2964 */
+    --granny: 336 65% 60%;          /* #d94c78 */
+    --joey: 195 78% 26%;            /* #09577a */
+    
+    /* Text Colors */
+    --text-primary: 0 0% 98%;       /* Near white */
+    --text-secondary: 240 5% 84%;   /* Light zinc */
+    --text-muted: 240 4% 46%;       /* Mid zinc */
+    
+    /* Component Tokens */
+    --radius: 1.5rem;
+    --transition-smooth: all 0.15s ease;
+    --transition-glow: filter 0.25s ease;
+    
+    /* Gradients */
+    --gradient-hero: linear-gradient(140deg, hsl(var(--sky) / 0.55), hsl(var(--cyan) / 0.25), transparent);
+    --gradient-card: linear-gradient(180deg, hsl(var(--ink)), hsl(var(--ink-2)));
+    --gradient-hairline: linear-gradient(90deg, transparent, hsl(var(--sky) / 0.4), transparent);
+    --gradient-glow: radial-gradient(closest-side, hsl(var(--sky) / 0.40), hsl(var(--cyan) / 0.18), transparent);
+    
+    /* Shadows */
+    --shadow-card: 0 4px 20px -4px hsl(var(--ink) / 0.8);
+    --shadow-card-hover: 0 8px 30px -4px hsl(var(--sky) / 0.3);
+    --shadow-glow: 0 0 40px hsl(var(--sky) / 0.15);
   }
+}
 
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+@layer components {
+  /* Core Components */
+  .blur-card {
+    @apply rounded-3xl border border-zinc-700/70 bg-zinc-900/40 backdrop-blur-sm;
+    background: var(--gradient-card);
+    transition: var(--transition-smooth), var(--transition-glow);
+    box-shadow: var(--shadow-card);
   }
+  
+  .blur-card:hover {
+    @apply -translate-y-0.5;
+    box-shadow: var(--shadow-card-hover);
+    filter: brightness(1.1);
+  }
+  
+  .hairline {
+    height: 1px;
+    background: var(--gradient-hairline);
+  }
+  
+  .pill {
+    @apply inline-flex gap-2 items-center px-3 py-2 rounded-xl border border-zinc-700/80 bg-zinc-900/60 text-sm;
+    transition: var(--transition-smooth);
+  }
+  
+  .pill:hover {
+    @apply border-sky-400/40 bg-zinc-800/80;
+  }
+  
+  .glow-orb {
+    @apply pointer-events-none absolute w-[36rem] h-[36rem] rounded-full blur-3xl;
+    background: var(--gradient-glow);
+  }
+  
+  /* Button Variants */
+  .btn-primary {
+    @apply rounded-2xl px-6 py-3 bg-white text-zinc-900 font-semibold;
+    transition: var(--transition-smooth);
+  }
+  
+  .btn-primary:hover {
+    @apply bg-sky-50 shadow-lg;
+    box-shadow: 0 0 20px hsl(var(--sky) / 0.3);
+  }
+  
+  .btn-secondary {
+    @apply rounded-2xl px-6 py-3 border border-zinc-500/60 text-zinc-200/90 bg-white/[0.02];
+    transition: var(--transition-smooth);
+  }
+  
+  .btn-secondary:hover {
+    @apply border-sky-400/60 bg-sky-400/5;
+  }
+  
+  /* Form Elements */
+  .form-input {
+    @apply w-full rounded-2xl bg-zinc-900 border border-zinc-800 px-4 py-3 text-zinc-100;
+    transition: var(--transition-smooth);
+  }
+  
+  .form-input:focus {
+    @apply outline-none border-sky-400/60 ring-2 ring-sky-400/20;
+  }
+  
+  /* Character Colors */
+  .character-aurora { background: linear-gradient(180deg, hsl(var(--aurora) / 0.13), transparent); }
+  .character-nana { background: linear-gradient(180deg, hsl(var(--nana) / 0.13), transparent); }
+  .character-granny { background: linear-gradient(180deg, hsl(var(--granny) / 0.13), transparent); }
+  .character-joey { background: linear-gradient(180deg, hsl(var(--joey) / 0.13), transparent); }
 }
 
 @layer base {
@@ -100,6 +122,8 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    background: hsl(var(--ink));
+    color: hsl(var(--text-primary));
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 }
