@@ -10,6 +10,15 @@ interface CharacterCardProps {
 const CharacterCard = ({ character, onClick }: CharacterCardProps) => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
+  const getCharacterClass = (name: string) => {
+    const normalized = name.toLowerCase().replace(/[^a-z]/g, '');
+    if (normalized.includes('aurora')) return 'character-aurora';
+    if (normalized.includes('nana') || normalized.includes('nessa')) return 'character-nana';
+    if (normalized.includes('granny')) return 'character-granny';
+    if (normalized.includes('joey')) return 'character-joey';
+    return '';
+  };
+
   const getSocialIcon = (platform: string) => {
     switch (platform) {
       case 'instagram':
@@ -35,7 +44,7 @@ const CharacterCard = ({ character, onClick }: CharacterCardProps) => {
 
   return (
     <div 
-      className="blur-card group cursor-pointer overflow-hidden"
+      className={`blur-card group cursor-pointer overflow-hidden character-card ${getCharacterClass(character.name)}`}
       onClick={onClick}
       style={{
         background: `linear-gradient(180deg, ${character.color}22, hsl(var(--ink)))`
@@ -69,7 +78,7 @@ const CharacterCard = ({ character, onClick }: CharacterCardProps) => {
               href={data.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="pill group/social"
+              className="pill group/social social-icon"
               onClick={(e) => e.stopPropagation()}
             >
               {getSocialIcon(platform)}

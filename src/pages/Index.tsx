@@ -62,11 +62,22 @@ const Index = () => {
             <div className="relative rounded-3xl border border-zinc-700/70 bg-gradient-to-b from-zinc-900/95 to-zinc-950/95 px-8 md:px-12 py-16 overflow-hidden backdrop-blur-sm">
               <div className="hairline mx-8 -mt-px absolute top-0 left-0 right-0"></div>
               <div className="glow-orb -right-40 -top-24"></div>
+              <div className="hero-scan"></div>
 
               <p className="text-xs uppercase tracking-[0.2em] text-zinc-400 mb-4">Blur Studios AI</p>
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight">
-                Blurring the Lines Between <br />
-                <span className="text-sky-400">Reality and AI</span>
+                {["Blurring", "the", "Lines", "Between"].map((word, i) => (
+                  <span key={i} className="hero-word mr-2" style={{ animationDelay: `${i * 20}ms` }}>
+                    {word}
+                  </span>
+                ))} <br />
+                <span className="text-sky-400">
+                  {["Reality", "and", "AI"].map((word, i) => (
+                    <span key={i} className="hero-word mr-2" style={{ animationDelay: `${(i + 4) * 20}ms` }}>
+                      {word}
+                    </span>
+                  ))}
+                </span>
               </h1>
               <p className="text-lg md:text-xl text-zinc-300 max-w-2xl mb-8">
                 We create hyper-viral AI influencers and characters that dominate the internet
@@ -118,7 +129,7 @@ const Index = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {whatWeDoItems.map((item, index) => (
-              <div key={index} className="blur-card p-8 text-center group">
+              <div key={index} className="blur-card p-8 text-center group stagger-item">
                 <div className="text-sky-400 mb-6 flex justify-center group-hover:scale-110 transition-transform">
                   {item.icon}
                 </div>
@@ -145,12 +156,13 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {ROSTER.map((character) => (
-              <CharacterCard
-                key={character.name}
-                character={character}
-                onClick={() => setSelectedCharacter(character)}
-              />
+            {ROSTER.map((character, index) => (
+              <div key={character.name} className="stagger-item">
+                <CharacterCard
+                  character={character}
+                  onClick={() => setSelectedCharacter(character)}
+                />
+              </div>
             ))}
           </div>
         </div>
